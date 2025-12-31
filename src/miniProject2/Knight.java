@@ -28,8 +28,8 @@ public class Knight implements Figure{
         return field;
     }
     public void makeMove(int x, int y, Field[][] fields,int n){
-        fields[x][y].setMarked(true);
         if(n==0)return;
+        fields[x][y].setMarked(true);
 
         if (hasField(x+2, y-1,fields)) {
             fields[x+2][y-1].setMarked(true);

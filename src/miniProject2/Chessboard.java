@@ -218,11 +218,18 @@ public class Chessboard{
     }
 	public void markMoves(int x, int y, int n, Figure figure){
 		if(n==0)return;
-		Field[][] firstMark = figure.getMoves(x,y,8,8);
+		Field[][] firstMark = figure.getMoves(x,y, fields.length, fields[0].length);
 		for(int i=0; i<fields.length; i++){
 			for(int j=0; j<fields[0].length; j++){
 				if(firstMark[i][j].getMarked()){
-					figure.makeMove(i,j,fields,n);
+					fields[i][j].setMarked(true);
+				}
+			}
+		}
+		for(int i=0; i<fields.length; i++){
+			for(int j=0; j<fields[0].length; j++){
+				if(firstMark[i][j].getMarked()){
+					figure.makeMove(i,j,fields,n-1);
 				}
 			}
 		}
@@ -266,12 +273,16 @@ public class Chessboard{
 			b.clearMarks();			
 		}
 		System.out.println("Marking moves: ");
+
 		b.clearMarks();
 		System.out.println("Knight: ");
-		b.markMoves(3,3,6,new Knight());
+		b.markMoves(0,0,2,new Knight());
 		b.printMarks();
+
 		b.clearMarks();
-		b.markMoves(3,3,1,new Bishop());
+		System.out.println("Bishop: ");
+		b.markMoves(0,0,2,new Bishop());
+		b.printMarks();
 
 
 	}

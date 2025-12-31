@@ -6,8 +6,8 @@ public class Bishop implements Figure{
     public Field[][] getMoves(int x, int y, int boardWidth, int boardHeight){
         Field[][] field = createField(boardWidth,boardHeight);
         makeMove(x,y,field,1);
-        printMarks(field);
-        printColor(field);
+//        printMarks(field);
+//        printColor(field);
 
         return field;
     }
@@ -30,31 +30,35 @@ public class Bishop implements Figure{
     }
 
     public void makeMove(int x, int y, Field[][] field,int n){
-        markY(x,y,field);
-        markX(x,y,field);
-        markY2(x,y,field);
-        markX2(x,y,field);
-
+        if(n==0)return;
+        markY(x,y,field,n);
+        markX(x,y,field,n);
+        markY2(x,y,field,n);
+        markX2(x,y,field,n);
     }
-    public void markY(int x, int y,Field[][] field){
+    public void markY(int x, int y,Field[][] field, int n){
         if(y>=field[0].length|| x>=field.length)return;
         field[x][y].setMarked(true);
-        markY(x+1,y+1,field);
+        markY(x+1,y+1,field,n);
+        makeMove(x,y,field,n-1);
     }
-    public void markX(int x, int y,Field[][] field){
+    public void markX(int x, int y,Field[][] field,int n){
         if(y<0|| x<0)return;
         field[x][y].setMarked(true);
-        markX(x-1,y-1,field);
+        markX(x-1,y-1,field,n);
+        makeMove(x,y,field,n-1);
     }
-    public void markY2(int x, int y,Field[][] field){
+    public void markY2(int x, int y,Field[][] field,int n){
         if(y<0|| x>=field.length)return;
         field[x][y].setMarked(true);
-        markY2(x+1,y-1,field);
+        markY2(x+1,y-1,field,n);
+        makeMove(x,y,field,n-1);
     }
-    public void markX2(int x, int y,Field[][] field){
+    public void markX2(int x, int y,Field[][] field,int n){
         if(y>=field[0].length|| x<0)return;
         field[x][y].setMarked(true);
-        markX2(x-1,y+1,field);
+        markX2(x-1,y+1,field,n);
+        makeMove(x,y,field,n-1);
     }
 
 
@@ -78,6 +82,6 @@ public class Bishop implements Figure{
 
     public static void main(String[] args) {
         Bishop b = new Bishop();
-        b.getMoves(7,4,8,8);
+        b.getMoves(0,0,8,8);
     }
 }
