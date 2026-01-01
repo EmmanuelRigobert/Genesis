@@ -6,8 +6,8 @@ public class Rook implements Figure{
     public Field[][] getMoves(int x, int y, int boardWidth, int boardHeight){
         Field[][] field = createBoard(boardWidth,boardHeight);
         makeMove(x,y,field,1);
-        printColor(field);
-        printMarked(field);
+//        printColor(field);
+//        printMarked(field);
 
         return field;
     }
@@ -29,19 +29,22 @@ public class Rook implements Figure{
         return field;
     }
     public void makeMove(int x, int y, Field[][] field,int n){
-        markY(x,0,field);
-        markX(0,y,field);
+        if(n==0)return;
+        markY(x,0,field, n);
+        markX(0,y,field,n);
 
     }
-    public void markY(int x, int y,Field[][] field){
+    public void markY(int x, int y,Field[][] field, int n){
         if(y>=field[x].length)return;
         field[x][y].setMarked(true);
-        markY(x,y+1,field);
+        markY(x,y+1,field,n);
+        makeMove(x,y,field,n-1);
     }
-    public void markX(int x, int y,Field[][] field){
+    public void markX(int x, int y,Field[][] field,int n){
         if(x>=field.length)return;
         field[x][y].setMarked(true);
-        markX(x+1,y,field);
+        markX(x+1,y,field,n);
+        makeMove(x,y,field,n-1);
     }
 
     public void visitor(Visitor visitor, Field[][] fields){

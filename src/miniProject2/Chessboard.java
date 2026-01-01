@@ -276,12 +276,17 @@ public class Chessboard{
 
 		b.clearMarks();
 		System.out.println("Knight: ");
-		b.markMoves(0,0,2,new Knight());
+		b.markMoves(1,0,1,new Knight());
 		b.printMarks();
 
 		b.clearMarks();
 		System.out.println("Bishop: ");
-		b.markMoves(0,0,2,new Bishop());
+		b.markMoves(2,0,1,new Bishop());
+		b.printMarks();
+
+		b.clearMarks();
+		System.out.println("Rook: ");
+		b.markMoves(0,0,1,new Rook());
 		b.printMarks();
 
 
