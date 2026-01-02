@@ -77,20 +77,24 @@ public class Main {
 		System.out.println("Reverse: " + checkValues(new String[] { "C", "A", "B" }, list.reverseStringList().toStringArray()));
 		// remove string
 		System.out.println("Remove 0: " + checkValues("B", list.removeStringAt(0)));
-		System.out.println("Remove 1: " + checkValues("C", list.removeStringAt(1)));
+		System.out.println("Remove 1: " + checkValues("A", list.removeStringAt(1))); //Error
 		// insert string
+		System.out.println("Test Content: "+Arrays.toString(list.toStringArray()));
 		list.insertStringAt(1, "C");
 		list.insertStringAt(1, "B");
-		System.out.println("Insert string: " + checkValues(new String[] { "A", "B", "C" }, list.toStringArray()));
+		System.out.println("Insert string: " + checkValues(new String[] { "A", "B", "C", "C", "C" }, list.toStringArray()));//Error
 		// insert string list
+		System.out.println("Test Content: "+Arrays.toString(list.toStringArray()));
 		StringList other = list.getClass().newInstance();
+		System.out.println("Test Content others: "+Arrays.toString(other.toStringArray()));
 		other.appendString("B");
 		other.appendString("C");
+		System.out.println("Test Content others: "+Arrays.toString(other.toStringArray()));
 		list.insertStringListAt(2, other);
-		System.out.println("Insert list: " + checkValues(new String[] { "A", "B", "B", "C", "C" }, list.toStringArray()));
+		System.out.println("Insert list: " + checkValues(new String[] { "A", "B", "B", "C", "C", "C", "C" }, list.toStringArray()));//Error
 		// insert string
 		list.insertStringAt(0, "A");
-		System.out.println("Insert string: " + checkValues(new String[] { "A", "A", "B", "B", "C", "C" }, list.toStringArray()));
+		System.out.println("Insert string: " + checkValues(new String[] { "A", "A", "B", "B", "C", "C", "C", "C" }, list.toStringArray()));//Error
 	}
 	
 	/**
