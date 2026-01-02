@@ -76,7 +76,9 @@ public class Main {
 		// reverse list
 		System.out.println("Reverse: " + checkValues(new String[] { "C", "A", "B" }, list.reverseStringList().toStringArray()));
 		// remove string
+		System.out.println("Current List: " + Arrays.toString(list.toStringArray()));
 		System.out.println("Remove 0: " + checkValues("B", list.removeStringAt(0)));
+		System.out.println("Current List2: " + Arrays.toString(list.toStringArray()));
 		System.out.println("Remove 1: " + checkValues("A", list.removeStringAt(1))); //Error
 		// insert string
 		System.out.println("Test Content: "+Arrays.toString(list.toStringArray()));

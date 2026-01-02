@@ -214,30 +214,90 @@ public class LinkedStringList implements StringList {
 	@Override
 	public String replaceStringAt(int i, String text) {
 		// TODO: implement
-		return null;
+		if(i>counter)throw new IllegalArgumentException("Index out of bounds");
+		Item current=head;
+		Item oldCurrent=head;
+		if(i==0){
+			head=new Item(text);
+			head.setNext(current.getNext());
+			current.getNext().setPrevious(head);
+			return oldCurrent.getString();
+		}
+		for(int x=1; x<counter; x++){
+			current=current.getNext();
+			if(i==x){
+				Item newItem = new Item(text);
+				oldCurrent=current;
+				current.getPrevious().setNext(newItem);
+				newItem.setPrevious(current.getPrevious());
+				newItem.setNext(current.getNext());
+				current.next.setPrevious(newItem);
+			}
+		}
+		return oldCurrent.getString();
 	}
 	
 	@Override
 	public String removeStringAt(int i) {
 		// TODO: implement
-		return null;
+		if(i>counter)throw new IllegalArgumentException("Index out of bounds");
+		Item current=head;
+		if(i==0){
+			head=current.getNext();
+			head.setPrevious(null);
+			counter--;
+			return current.getString();
+		}
+		for(int x=1; x<counter; x++){
+			current=current.getNext();
+			if(i==x){
+				current.getPrevious().setNext(current.getNext());
+				if(current.getNext()!=null){
+					current.getNext().setPrevious(current.getPrevious());
+				}
+				counter--;
+			}
+		}
+		return current.getPrevious().getString();
 	}
 
 	@Override
 	public String getLastString() {
 		// TODO: implement
-		return counter>0?this.toStringArray()[this.toStringArray().length]: null;
+		return counter>0?this.toStringArray()[this.toStringArray().length-1]: null;
 	}
 
 	@Override
 	public StringList reverseStringList() {
 		// TODO: implement
-		return new LinkedStringList();
+		String[] arr = toStringArray();
+		String[] reverse = new String[arr.length];
+		int n= reverse.length-1;
+		for(int i=0; i< reverse.length;i++){
+			reverse[i]=arr[n];
+			n--;
+		}
+		LinkedStringList newList = new LinkedStringList();
+		newList.counter=reverse.length;
+		newList.head  = new Item(reverse[0]);
+		Item newTail=newList.head;
+		for(int x=1; x<reverse.length;x++){
+			Item newItem = new Item(reverse[x]);
+			newItem.setPrevious(newTail);
+			newTail.setNext(newItem);
+			newTail=newTail.next;
+		}
+
+		return newList;
 	}
 
 	@Override
 	public int getIndexOfString(String text, int from) {
 		// TODO: implement
+		String[] list = toStringArray();
+		for(int i=from;i< list.length;i++){
+			if(list[i].equals(text))return i;
+		}
 		return -1;
 	}
 
@@ -267,7 +327,13 @@ public class LinkedStringList implements StringList {
 		System.out.println("After: "+Arrays.toString(list.toStringArray()));
 		list.insertStringListAt(0,list);
 		System.out.println("After: "+Arrays.toString(list.toStringArray()));
-
+		list.replaceStringAt(1,"NewWorld");
+		System.out.println("After: "+Arrays.toString(list.toStringArray()));
+		list.removeStringAt(1);
+		System.out.println("After: "+Arrays.toString(list.toStringArray()));
+		System.out.println(list.getIndexOfString("Text2",3));
+		StringList newList = list.reverseStringList();
+		System.out.println(Arrays.toString(newList.toStringArray()));
 
 	}
 	
