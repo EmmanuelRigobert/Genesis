@@ -53,6 +53,21 @@ public class StringStack {
 	 */
 	public void push(String item) {
 		// TODO: implement
+		if(size==getCapacity()){
+			String[] newArr = new String[items.length+increment];
+			copyElts(items,newArr);
+			items=newArr;
+			items[size]=item;
+			size++;
+			return;
+		}
+		items[size]=item;
+		size++;
+	}
+	public void copyElts(String[] origin, String[] dest){
+		for(int i=0; i< size;i++){
+			dest[i]=origin[i];
+		}
 	}
 	
 	/**
@@ -67,7 +82,16 @@ public class StringStack {
 	 */
 	public String pop() {
 		// TODO: implement
-		return null;
+		if(size==0)return null;
+		String popped =  items[size-1];
+		items[size-1]=null;
+		size--;
+		if((getCapacity()-size)>=2*increment){
+			String[] newArr = new String[items.length-increment];
+			copyElts(items,newArr);
+			items=newArr;
+		}
+		return popped;
 	}
 	
 	/**
