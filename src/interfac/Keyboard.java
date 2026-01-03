@@ -25,10 +25,12 @@ public class Keyboard implements Input,Memory{
 	public Character getFirstChar() {
 		if(needsToCharge())return null;
 		Character popped= storage[0];
-		for(int i=1; i<storage.length; i++){
+		for(int i=0; i<storage.length; i++){
+			if(i==storage.length-1)continue;
 			storage[i]=storage[i+1];
 		}
 		storage[storage.length-1]=null;
+		batteryCharge-=4;
 		return popped;
 	}
 
