@@ -37,7 +37,7 @@ public class Keyboard implements Input,Memory{
 	@Override
 	public void emptyMemory() {
 		if(needsToCharge())return;
-		for(int i=1; i<storage.length; i++){
+		for(int i=0; i<storage.length; i++){
 			storage[i]=null;
 		}
 		batteryCharge-=2;
