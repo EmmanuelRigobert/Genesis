@@ -1,3 +1,4 @@
+package interfac;
 
 public interface ElectricityDependence {
 	

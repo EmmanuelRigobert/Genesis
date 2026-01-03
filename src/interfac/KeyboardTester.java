@@ -1,3 +1,5 @@
+package interfac;
+
 public class KeyboardTester {
 
 	public static void main(String[] args) {
