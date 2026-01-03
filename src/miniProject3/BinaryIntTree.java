@@ -56,7 +56,17 @@ public class BinaryIntTree {
 		 */
 		public int toArray(int[] array, int startIndex) {
 			// TODO: implement
-			return 0;
+			int index = startIndex;
+			if(leftChild != null){
+				index = leftChild.toArray(array,index);
+			}
+			array[index]=value;
+			index++;
+
+			if(rightChild != null){
+				index = rightChild.toArray(array,index);
+			}
+			return index;
 		}
 		
 		
@@ -83,6 +93,17 @@ public class BinaryIntTree {
 	 */
 	public boolean containsValue(int value) {
 		// TODO: implement
+		Node current =root;
+		if(current==null)return false;
+		while(current!=null){
+			if(value== root.value){
+				return true;
+			}else if(value<current.value){
+				current = current.leftChild;
+			}else{
+				current = current.rightChild;
+			}
+		}
 		return false;
 	}
 	
@@ -96,7 +117,28 @@ public class BinaryIntTree {
 	 */
 	public boolean insertValue(int value) {
 		// TODO: implement
-		return false;
+		if(root==null){
+			root = new Node(value);
+			return true;
+		}
+		Node current = root;
+		while(true){
+			if(value < current.value){
+				if(current.leftChild==null){
+					current.leftChild=new Node(value);
+					return true;
+				}
+				current=current.leftChild;
+			}else if(value==current.value){
+				return false;
+			}else{
+				if(current.rightChild==null){
+					current.rightChild=new Node(value);
+					return true;
+				}
+				current=current.rightChild;
+			}
+		}
 	}
 	
 	/**
@@ -106,7 +148,11 @@ public class BinaryIntTree {
 	 */
 	public int getNodeCount() {
 		// TODO: implement
-		return 0;
+		return getNodeCount(root);
+	}
+	public int getNodeCount(Node current){
+		if(current==null)return 0;
+		return 1+ getNodeCount(current.leftChild) + getNodeCount(current.rightChild);
 	}
 	
 	/**
@@ -117,7 +163,17 @@ public class BinaryIntTree {
 	 */
 	public boolean isFull() {
 		// TODO: implement
-		return false;
+		return isFull(root);
+	}
+	public boolean isFull(Node current){
+		if(current == null)return true;
+		if(current.leftChild!=null && current.rightChild == null){
+			return false;
+		}
+		if(current.leftChild==null && current.rightChild != null){
+			return false;
+		}
+		return isFull(current.rightChild) && isFull(current.rightChild);
 	}
 	
 	/**
